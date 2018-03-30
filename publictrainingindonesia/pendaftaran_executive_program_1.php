@@ -1,10 +1,14 @@
+<?php
+  require_once 'core/init.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
+    <title>Pendaftaran Executive Program</title>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -60,13 +64,13 @@
       			<nav class="navbar navbar-default navbar-fixed-side recolor navResize">
          			<ul class="nav nav-sidebar">
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Beranda</a>
+              				<a class="nav-link" href="index.php">Beranda</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Profil</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link active" href="#">Edukasi</a>
+              				<a class="nav-link active" href="jadwal_executive_program.php">Edukasi</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Riset & Pengembangan</a>
@@ -129,10 +133,10 @@
               				<a class="nav-link" href="#">Informasi</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Jadwal</a>
+              				<a class="nav-link" href="jadwal_executive_program.php">Jadwal</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link  active" href="#">Pendaftaran</a>
+              				<a class="nav-link  active" href="pendaftaran_executive_program_1.php">Pendaftaran</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Daftar Peserta</a>
@@ -158,62 +162,76 @@
 						Pilih program dan wilayah untuk memulai
 					</div>
 					<br>
-					<div class="form-group">
-						<div class=" col-md-4">
-							<label for="program">Program</label>
-								<select class="form-control" id="program">
-									<option>Assesment Center</option>
-									<option>HRD</option>									
-									<option>Internal Audit</option>
-								</select>
-						</div>
-						<div class="col-md-4">
-							<label for="wilayah">Wilayah</label>
-								<select class="form-control" id="wilayah">
-									<option>Bandung</option>
-									<option>Jakarta</option>
-								</select>
-						</div>
-						<div class=" col-md-4">
-							<button type="button" class="btn btn-primary btn-potition">FILTER</button>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="table-design">
-							<table class="table table-striped">
-							 	<tr>
-									<td> Pilih </td>
-									<td> Gelombang </td>
-									<td> Waktu Mulai </td>
-									<td> Peserta </td>
-									<td> Kuota </td>
-								</tr>
-								<tr>									
-									<td> <input type="radio" name="optionsRadios" id="optionsRadios1"> </td>
-									<td> S1 </td>
-									<td>  </td>
-									<td>  </td>
-									<td>  </td>
-								</tr>
-								<tr>								
-									<td> <input type="radio" name="optionsRadios" id="optionsRadios2"> </td>
-									<td> S2 </td>
-									<td>  </td>
-									<td>  </td>
-									<td>  </td>
-								</tr>
-							</table>
-						</div>
-						<div class=" col-md-4">
-							<button type="button" class="btn btn-primary btn-potition">PILIH </button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+  					<div class="form-group">
+  						<div class=" col-md-4">
+  							<label for="program">Program</label>
+  								<select class="form-control" name="program">
+  									<option>Assesment Center</option>
+  									<option>HRD</option>	
+  									<option>Internal Audit</option>
+  								</select>
+  						</div>
+  						<div class="col-md-4">
+  							<label for="wilayah">Wilayah</label>
+  								<select class="form-control" name="wilayah">
+  									<option>Bandung</option>
+  									<option>Jakarta</option>
+  								</select>
+  						</div>
+  						<div class=" col-md-4">
+  							<input type="submit" name="submit" value="FILTER" class="btn btn-primary btn-potition"/>
+  						</div>
+  					</div>
+          </form>          
+
+          <form method="POST" action="pendaftaran_executive_program_2.php">
+            <div class="form-group">
+  						<div class="table-design">
+  							<table class="table table-striped">
+  							 	<tr>
+  									<td> Pilih </td>
+  									<td> Gelombang </td>
+  									<td> Waktu Mulai </td>
+  									<td> Peserta </td>
+  									<td> Kuota </td>
+  								</tr>
+                  <?php 
+                      include 'db.php'; 
+                      
+                      if(isset($_POST['submit'])){
+                        $sql = "SELECT * FROM executive_program WHERE program_name='".$_POST["program"]."' AND region='".$_POST["wilayah"]."'";
+                        $result = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($result)>0) {
+                            while($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr><td><input type="radio" name="pilih_program" value="'.$row['program_id'].'"></td>';
+                                echo "<td>".$row["batch"]."</td>";
+                                echo "<td>".$row["start_time"]."</td>";
+                                echo "<td>  </td>";
+                                echo "<td>".$row["quota"]."</td></tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                         }
+                      }else{
+                          echo "ga ada";
+                      }
+                      mysqli_close($conn);
+                  ?> 
+  								</table>
+  					   </div>
+            </div>  
+            
+              <div class="col-md-4">
+                <div class="form-group">
+    							<input type="submit" name="pilih" value="PILIH" class="btn btn-primary btn-potition"/>
+                </div>
+              </div>
+					</form>
+	  
+    </div>  
 	</div>
-	
 	
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="assets/js/jquery-1.11.2.min.js"></script>

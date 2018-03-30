@@ -1,32 +1,10 @@
-<?php
-    require_once "core/init.php";
-
-    if (isset($_POST['signin'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $login_result = check_user_data($email, $password);
-
-        if (mysqli_num_rows($login_result) > 0) {
-            $_SESSION['login_user'] = mysqli_fetch_assoc($login_result);
-            $user_fullname = $_SESSION['login_user']['fullname'];
-            echo "
-                <script>
-                    alert('Selamat Datang, $user_fullname! Setelah selesai menggunakan sistem ini, mohon Anda logout dahulu sebelum meninggalkan komputer ini!');
-                </script>
-            ";
-            header('Location: index.php');
-        } else {
-            echo "<script>alert('Email atau password tidak dikenali!');</script>";
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Welcome to PTI!</title>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -65,8 +43,18 @@
                   <li> &nbsp; &nbsp;</li>
                   <li class="navbar-addMargin3">
               <div>
-                    <a href="login.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> &nbsp;Log In</button></a>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> &nbsp;Alumni Portal</button>
+                        <?php
+                            if (isset($_SESSION['login_user'])) {
+                        ?>
+                                <a href="logout.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> &nbsp;Log Out</button></a>
+                        <?php
+                            } else {
+                        ?>
+                                <a href="login.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> &nbsp;Log In</button></a>
+                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> &nbsp;Alumni Portal</button>
+                        <?php
+                            }
+                        ?>
                   </div>
                 </li>
               </ul>
@@ -82,7 +70,7 @@
             <nav class="navbar navbar-default navbar-fixed-side recolor navResize">
               <ul class="nav nav-sidebar">
                   <li class="nav-item">
-                      <a class="nav-link" href="index.php">Beranda</a>
+                      <a class="nav-link active" href="index.php">Beranda</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Profil</a>
@@ -122,45 +110,84 @@
       </div>
         </div>
   </div>
-    <div class="container-fluid">
-      <div class="row full-giveMargin full-givePadding">
-      <div class="col-md-12 recolor">
-        <div class="recolor">
-            <div class="content-header header2">Public Training Indonesia</div>
-            <div class="login-center">
-              <form class="form-horizontal" action="login.php" method="POST">
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                  <div class="col-sm-4">
-                    <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Email" required>
-                  </div>
-                  </div>
-                  <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                  <div class="col-sm-4">
-                      <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Password" required>
-                  </div>
-                  </div>
-                  <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-4">
-                      <button type="submit" class="btn btn-default btn-md btn-block " name="signin" value="signin">Sign in</button>
-                  </div>
-                  </div>
-                <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-4">
-                    <label for="" class=" link-white"><a href="signup.php">Daftar Masuk</a></label><!--Arahkan ke form registrasi-->
-                    <label for="" class=" link-white"><a href="#">Saya tidak bisa mengakses akun saya</a></label>
-                  </div>
-                  </div>
 
-              </form>
-            </div>
-        </div>
-      </div>
+  <div class="col-md3-3 col-lg-6 setBoxPotition1">
+      <ul class="nav nav-tabs square-padding blue-background">
+          <li role="presentation" class="active"><a style="color : #3894D2;" href="#">Katalog</a></li>
+          <li role="presentation"><a href="#">Berita</a></li>
+        </ul>
     </div>
-  </div>
 
+  <div class="col-md3-3 col-lg-4 setBoxPotition2">
+      <div class="blue-background headerStyle"> PENDAFTARAN REGULAR PROGRAM </div>
+      <form class="formStyle">
+          <div class="form-group">
+            <label for="program">Program</label>
+            <!-- Split button -->
+            <div class="btn-group space">
+                <button type="button" class="btn btn-default">Program</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+            </div>
+          </div>
+          <a href="pendaftaran_regular_program_1.php"><button type="button" class="btn btn-primary marginCheck" name="register" value="register">Daftar</button></a>
+      </form>
+      <div class="marginCheck"><a href="jadwal_regular_program.php"> Lihat Semua Program </a></div>
+    </div>
 
+  <div class="col-md3-3 col-lg-4 setBoxPotition3">
+    <div class="blue-background headerStyle"> PUBLIC TRAINING INDONESIA </div>
+        <div class="subHeaderStyle"> PENDAFTARAN PUBLIC TRAINING </div>
+          <form>
+            <div class="form-group">
+              <label for="program">Program</label>
+                <!-- Split button -->
+                <div class="btn-group space">
+                  <button type="button" class="btn btn-default">Program</button>
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="program">Program</label>
+                <!-- Split button -->
+                <div class="btn-group space">
+                  <button type="button" class="btn btn-default">Kota</button>
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+            </div>
+            <a href="pendaftaran_executive_program_1.php" type="submit" class="btn btn-primary marginCheck">Daftar</a>
+          </form>
+          <div class="marginCheck"><a href="jadwal_executive_program.php"> Lihat Semua Program </a></div>
+      </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="assets/js/jquery-1.11.2.min.js"></script>

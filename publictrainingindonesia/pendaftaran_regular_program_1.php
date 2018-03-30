@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
+    <title>Pendaftaran Regular Program</title>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -71,13 +71,13 @@
       			<nav class="navbar navbar-default navbar-fixed-side recolor navResize">
          			<ul class="nav nav-sidebar">
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Beranda</a>
+              				<a class="nav-link" href="index.html">Beranda</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Profil</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link active" href="#">Edukasi</a>
+              				<a class="nav-link active" href="jadwal_executive_program.php">Edukasi</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Riset & Pengembangan</a>
@@ -140,10 +140,10 @@
               				<a class="nav-link" href="#">Informasi</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Jadwal</a>
+              				<a class="nav-link" href="jadwal_regular_program.php">Jadwal</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link  active" href="#">Pendaftaran</a>
+              				<a class="nav-link  active" href="pendaftaran_regular_program_1.php">Pendaftaran</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Daftar Peserta</a>

@@ -1,10 +1,13 @@
+<?php
+    require_once "core/init.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
+    <title>Jadwal Executive Program</title>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -60,13 +63,13 @@
       			<nav class="navbar navbar-default navbar-fixed-side recolor navResize">
          			<ul class="nav nav-sidebar">
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Beranda</a>
+              				<a class="nav-link" href="index.php">Beranda</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Profil</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link active" href="#">Edukasi</a>
+              				<a class="nav-link active" href="jadwal_executive_program.php">Edukasi</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Riset & Pengembangan</a>
@@ -129,10 +132,10 @@
               				<a class="nav-link" href="#">Informasi</a>
             			</li>
             			<li class="nav-item">
-              				<a class="active nav-link active" href="#">Jadwal</a>
+              				<a class="active nav-link active" href="jadwal_executive_program.php">Jadwal</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Pendaftaran</a>
+              				<a class="nav-link" href="pendaftaran_executive_program_1.php">Pendaftaran</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Daftar Peserta</a>
@@ -158,6 +161,7 @@
 						Pilih program untuk melihat jadwal
 					</div>
 					<br>
+
 					<div class="form-group">
 						<div class=" col-md-4">
 							<label for="program">Program</label>
@@ -175,9 +179,10 @@
 								</select>
 						</div>
 						<div class=" col-md-4">
-							<button type="button" class="btn btn-primary btn-potition">Lihat Jadwal</button>
+							<input type="submit" name="schedule" value="LIHAT JADWAL" class="btn btn-primary btn-potition"/>
 						</div>
-					</div>
+					
+          </div>
 					<div class="form-group">
 						<div class="table-design">
 							<table class="table table-striped">
@@ -187,18 +192,23 @@
 									<td> Peserta </td>
 									<td> Kuota </td>
 								</tr>
-								<tr>									
-									<td> S1 </td>
-									<td> 23 Mei 2017 </td>
-									<td>  </td>
-									<td>  </td>
-								</tr>
-								<tr>								
-									<td> S2 </td>
-									<td> 4 Juli 2017 </td>
-									<td>  </td>
-									<td>  </td>
-								</tr>
+								<?php
+                    if (isset($_POST['schedule'])) {
+                        while ($data = mysqli_fetch_assoc($result)) {
+                            $prog_id = $data['program_id'];
+                            $query = "SELECT sid FROM executive_program_registration WHERE program_id = '$prog_id'";
+                            $member_count = mysqli_query($conn, $query);
+                            $member_count = mysqli_num_rows($member_count);
+                ?>
+                            <tr>
+                                <td><?=$data['batch']?></td>
+                                <td><?=$data['start_date']?></td>
+                                <td><?=$member_count?></td>
+                            </tr>
+                <?php
+                        }
+                    }
+                ?>
 							</table>
 						</div>
 					</div>
