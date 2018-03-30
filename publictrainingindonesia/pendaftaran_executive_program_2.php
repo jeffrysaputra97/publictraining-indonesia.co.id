@@ -1,10 +1,13 @@
+<?php
+  require_once 'core/init.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
+    <title>Pendaftaran Executive Program</title>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -60,13 +63,13 @@
       			<nav class="navbar navbar-default navbar-fixed-side recolor navResize">
          			<ul class="nav nav-sidebar">
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Beranda</a>
+              				<a class="nav-link" href="index.html">Beranda</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Profil</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link active" href="#">Edukasi</a>
+              				<a class="nav-link active" href="jadwal_executive_program.php">Edukasi</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Riset & Pengembangan</a>
@@ -129,10 +132,10 @@
               				<a class="nav-link" href="#">Informasi</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link" href="#">Jadwal</a>
+              				<a class="nav-link" href="jadwal_executive_program.php">Jadwal</a>
             			</li>
             			<li class="nav-item">
-              				<a class="nav-link  active" href="#">Pendaftaran</a>
+              				<a class="nav-link  active" href="pendaftaran_executive_program_1.php">Pendaftaran</a>
             			</li>
             			<li class="nav-item">
               				<a class="nav-link" href="#">Daftar Peserta</a>
@@ -154,35 +157,43 @@
 					<div class="recolor content-header">
 						<div class="header">Pendaftaran Executive Program</div>
 					</div>
-					<div class="content-background">
-						<div class="content-form">
-							<div class="form-group">
-								<label for="program">Program : </label>
-							</div>							
-							<div class="form-group">
-								<label for="program">Gelombang : </label>
-							</div>
-							<div class="form-group">
-								<label for="program">Wilayah Pelaksanaan : </label>
-							</div>
-							<div class="form-group">
-								<label for="program">Waktu Pelaksanaan : </label>
-							</div>
-							<div class="form-group">
-								<label for="program">Kuota : </label>
-							</div>
-							<div class="form-group">
-								<label for="program">Jumlah Peserta : </label>
-							</div>
-							<div class="form-group">
-								<label for="program">Investasi : </label>
-							</div>
-							<div class="right-button">
-								<button type="submit" class="btn btn-primary">Sign Up</button>
-								<button type="submit" class="btn btn-primary">Sign In</button>
-							</div>
-						</div>					
-					</div>
+          <div class="content-background">
+            <div class="content-form">
+          <?php
+            include 'db.php';
+            $sql = "SELECT * FROM executive_program WHERE program_id='".$_POST['pilih_program']."'";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result)>0) {
+              while($row = mysqli_fetch_assoc($result)){
+
+                    echo "<div class='form-group'><label for='program'>Program : ".$row['program_name']."</label></div>";              
+                    echo "<div class='form-group'><label for='program'>Gelombang : ".$row['batch']."</label></div>";
+                    echo "<div class='form-group'><label for='program'>Wilayah Pelaksanaan : ".$row['region']."</label></div>";
+                    echo "<div class='form-group'><label for='program'>Waktu Pelaksanaan : ".$row['start_time']."</label></div>";
+                    echo "<div class='form-group'><label for='program'>Kuota : ".$row['quota']."</label></div>";
+                    echo "<div class='form-group'><label for='program'>Jumlah Peserta : </label></div>";
+                    echo "<div class='form-group'><label for='program'>Investasi : ".$row['registration_fee']."</label></div>";
+              
+              }
+            } else {
+                echo "0 results";
+            }    
+          ?>
+          <?php
+            if(isset($_SESSION['login_user'])){
+              echo '<div class="right-button">';
+              echo '<a href="" class="btn btn-primary">Sign Up</a>';
+              echo '<a href="" class="btn btn-primary">Login</a>';
+              echo '</div>';
+            }else{
+              echo '<div class="right-button">';
+              echo '<button type="submit" class="btn btn-primary">Daftarkan diri dan kirim email informasi</button>';
+              echo '</div>';
+            }
+          ?>
+					 
+          </div>          
+        </div>
 				</div>
 				
 			</div>

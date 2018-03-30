@@ -6743,10 +6743,72 @@ li> a.color-blue:visited{
 	margin-left : 30%;
 }
 
+.signup-center{
+	margin-top : 3%;
+	margin-left : 10%;
+}
+
 .link-white > a:link{
 	color : white;
 }
 
 .link-white > a:visited{
 	color : white;
+}
+
+.blue-text{
+	color : #3894D2;
+}
+
+.blue-background{
+	background-color:#3894D2;
+}
+
+.square-padding{
+	padding-top : 2%;
+	padding-left : 2%;
+}
+
+.setBoxPotition1{
+	margin-top : 1%;
+	margin-left: 17%;
+}
+
+.setBoxPotition2{
+	margin-top: -4%;
+	margin-left: 66.7%;
+}
+
+.setBoxPotition3{
+	margin-top : 3%;
+	margin-left: 66.7%;
+}
+
+.headerStyle{
+	text-align: center;
+	font-size: 17px;
+	color: white;
+	padding-top: 3.6%;
+	padding-bottom: 3.6%;
+}
+
+.subHeaderStyle{
+	font-size: 15px;
+	color: #3894D2;
+	padding-top: 3.4%;
+	padding-bottom: 3.4%;
+}
+
+.formStyle{
+	margin-top: 10%;
+}
+
+.space {
+	margin-left: 10%;
+}
+
+.marginCheck{
+	margin-top: 1%;
+	margin-left: 24.8%;
+	margin-bottom: 1.5%;
 }
